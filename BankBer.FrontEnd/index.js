@@ -56,6 +56,8 @@ $(function () {
         $("#new-transaction-foot").slideDown("fast");
     });
 
+
+
     // Add click event to the submit transaction button
     $("#submit-new-transaction-btn").click(function () {
         $.ajax({
@@ -68,14 +70,20 @@ $(function () {
                 Timestamp: $("#new-transaction-date").val(),
                 Description: $("#new-transaction-description").val()
             }
-        }).done(function(){
-            alert("Added successfully")
+        }).done(function(transactions){
+            $("#new-transaction-foot").slideUp("fast");
+            console.log(selectedAccount.Id);
+            $.ajax(`http://localhost:2226/api/transactions?accountId=${selectedAccount.Id}`)
+            .done(function (transactions) {
+                populateTransactionList(transactions);
+            })
         })
             .fail(function (err) {
                 alert("Failed to send new transaction. Are you sure BankBer.BackEnd is running?")
             });
     })
 })
+
 
 function renderUsers(users) {
     let userSelect = $("#user-select");
@@ -96,10 +104,16 @@ function populateTransactionList(transactions) {
         if(transactionDescription == null){
             transactionDescription = "No Description";
         }
+        // if(transaction.Type == "Debit"){
+        //     transactionAmount = $('#color').css('color', 'red');
+        //     console.log(transactionAmount);
+        // }
         let transactionDate = new Date(transaction.Timestamp)
         let dateString = `${transactionDate.getMonth() + 1}/${transactionDate.getDate()}/${transactionDate.getFullYear()} ${transactionDate.getHours()}:${transactionDate.getMinutes()}`
         let newTransaction = $(`<tr><td>${dateString}</td><td>$${transactionAmount}</td><td>${transaction.Type}</td><td>${transactionDescription}</td>/div>`)
         transactionList.append(newTransaction);
     }
 }
+
+
 
