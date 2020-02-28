@@ -60,7 +60,8 @@ namespace BankBer.BackEnd.Data_Access
                     AccountId = newTransaction.AccountId,
                     Timestamp = DateTime.Now,
                     Amount = newTransaction.Amount,
-                    Type = newTransaction.Type
+                    Type = newTransaction.Type,
+                    Description = newTransaction.Description
                 };
 
                 transactionCol.Insert(transaction);
