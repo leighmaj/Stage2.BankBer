@@ -91,14 +91,15 @@ function populateTransactionList(transactions) {
     let transactionList = $("#transaction-table");
     transactionList.children("td").remove();
     for (let transaction of transactions) {
+        let transactionAmount = parseFloat(transaction.Amount).toFixed(2);
         let transactionDescription = transaction.Description;
         if(transactionDescription == null){
             transactionDescription = "No Description";
         }
-
         let transactionDate = new Date(transaction.Timestamp)
         let dateString = `${transactionDate.getMonth() + 1}/${transactionDate.getDate()}/${transactionDate.getFullYear()} ${transactionDate.getHours()}:${transactionDate.getMinutes()}`
-        let newTransaction = $(`<tr><td>${dateString}</td><td>${transaction.Amount}</td><td>${transaction.Type}</td><td>${transactionDescription}</td>/div>`)
+        let newTransaction = $(`<tr><td>${dateString}</td><td>$${transactionAmount}</td><td>${transaction.Type}</td><td>${transactionDescription}</td>/div>`)
         transactionList.append(newTransaction);
     }
 }
+
