@@ -68,6 +68,8 @@ $(function () {
                 Timestamp: $("#new-transaction-date").val(),
                 Description: $("#new-transaction-description").val()
             }
+        }).done(function(){
+            alert("Added successfully")
         })
             .fail(function (err) {
                 alert("Failed to send new transaction. Are you sure BankBer.BackEnd is running?")
@@ -89,9 +91,14 @@ function populateTransactionList(transactions) {
     let transactionList = $("#transaction-table");
     transactionList.children("td").remove();
     for (let transaction of transactions) {
+        let transactionDescription = transaction.Description;
+        if(transactionDescription == null){
+            transactionDescription = "No Description";
+        }
+
         let transactionDate = new Date(transaction.Timestamp)
         let dateString = `${transactionDate.getMonth() + 1}/${transactionDate.getDate()}/${transactionDate.getFullYear()} ${transactionDate.getHours()}:${transactionDate.getMinutes()}`
-        let newTransaction = $(`<tr><td>${dateString}</td><td>${transaction.Amount}</td><td>${transaction.Type}</td><td>${transaction.Description}</td>/div>`)
+        let newTransaction = $(`<tr><td>${dateString}</td><td>${transaction.Amount}</td><td>${transaction.Type}</td><td>${transactionDescription}</td>/div>`)
         transactionList.append(newTransaction);
     }
 }

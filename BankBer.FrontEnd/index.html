@@ -73,7 +73,7 @@
                                 <span class="input-group-text">$</span>
                             </div>
                             <input type="number" class="form-control" id="new-transaction-amount">
-                            <input type="string" class="form-control" id="new-transaction-description">
+                            
                         </div>
                     </td>
                     <td>
@@ -82,10 +82,13 @@
                             <option value="Debit">Debit</option>
                             <option value="Credit">Credit</option>
                         </select>
-                     
+                    </td>
+                    <td>
+                        <input type="string" class="form-control" id="new-transaction-description">
                         <br>
                         <button id="submit-new-transaction-btn" class="btn btn-success w-100">Add Transaction</button>
-                </tr>
+                    </td>
+                    </tr>
             </tfoot>
         </table>
         <button class="btn btn-success w-100" type="button" id="add-transaction-btn">
